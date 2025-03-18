@@ -7,6 +7,8 @@ if (!isset($_SESSION['admin'])) {
 }
 ?>
 
+<a href="index.php?controller=admin&action=logout">Déconnexion</a>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,30 +21,68 @@ if (!isset($_SESSION['admin'])) {
     <h1>Liste des Clients</h1>
 
     <table border="1">
-        <thead>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th>Actions</th> <!-- Nouvelle colonne pour Modifier et Supprimer -->
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($clients as $client) : ?>
             <tr>
-                <th>ID</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Adresse</th>
+                <td><?= htmlspecialchars($client['nom']) ?></td>
+                <td><?= htmlspecialchars($client['prenom']) ?></td>
+                <td><?= htmlspecialchars($client['email']) ?></td>
+                <td><?= htmlspecialchars($client['telephone']) ?></td>
+                <td><?= htmlspecialchars($client['adresse']) ?></td>
+                <td>
+                    <a href="index.php?controller=client&action=edit&id=<?= $client['id'] ?>">Modifier</a> |
+                    <a href="#" onclick="confirmDelete(<?= $client['id'] ?>, <?= $this->clientModel->hasAccounts($client['id']) ? 'true' : 'false' ?>)">
+                        Supprimer
+                    </a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($clients as $client) : ?>
-                <tr>
-                    <td><?= htmlspecialchars($client['id']) ?></td>
-                    <td><?= htmlspecialchars($client['nom']) ?></td>
-                    <td><?= htmlspecialchars($client['prenom']) ?></td>
-                    <td><?= htmlspecialchars($client['email']) ?></td>
-                    <td><?= htmlspecialchars($client['telephone']) ?></td>
-                    <td><?= htmlspecialchars($client['adresse']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
+        <?php endforeach; ?>
+    </tbody>
     </table>
 
-    <a href="index.php?controller=admin&action=logout">Déconnexion</a>
+    <!-- Script pour la double alerte -->
+    <script>
+    function confirmDelete(clientId, hasAccounts) {
+        let message = hasAccounts ? 
+            "ATTENTION : Ce client a un compte bancaire !\n" +
+            "Êtes-vous sûr de vouloir définitivement supprimer ce client ?\n" +
+            "Les comptes liés seront supprimés et irrécupérables !" :
+            "Êtes-vous sûr de vouloir supprimer ce client ?";
+
+        if (confirm(message)) {
+            window.location.href = "index.php?controller=client&action=delete&id=" + clientId;
+        }
+    }
+    </script>
+
+    <!-- Affichage des messages sous le tableau -->
+<?php if (isset($_GET['message'])) : ?>
+    <p id="success-message" style="color: green;"><?= htmlspecialchars($_GET['message']) ?></p>
+<?php endif; ?>
+
+<?php if (isset($_GET['error'])) : ?>
+    <p id="error-message" style="color: red;"><?= htmlspecialchars($_GET['error']) ?></p>
+<?php endif; ?>
+
+<!-- Ajout d'un script pour faire disparaître le message après 3 secondes -->
+<script>
+    setTimeout(function() {
+        let successMessage = document.getElementById("success-message");
+        let errorMessage = document.getElementById("error-message");
+        if (successMessage) successMessage.style.display = "none";
+        if (errorMessage) errorMessage.style.display = "none";
+    }, 3000); // 3 secondes
+</script>
+
 </body>
 </html>
