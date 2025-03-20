@@ -17,12 +17,12 @@
 <?php endif; ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">💰 Liste des Comptes Bancaires</h2>
+    <h2 class="mb-4 text-center">💳  Liste des comptes bancaires</h2>
 
     <!-- Bouton Ajouter un Compte -->
     <div class="d-flex justify-content-end mb-3">
         <a href="index.php?controller=compte&action=create" class="btn btn-success">
-            ➕ Ajouter un Compte
+            ➕ Ajouter un compte
         </a>
     </div>
 
@@ -33,8 +33,8 @@
                 <tr>
                     <th>RIB</th>
                     <th>Solde (€)</th>
-                    <th>Type de Compte</th>
-                    <th>Client Associé</th>
+                    <th>Type de compte</th>
+                    <th>Client associé</th>
                     <th>Actions</th>
                 </tr>
             </thead>

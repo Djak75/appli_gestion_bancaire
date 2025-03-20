@@ -29,7 +29,7 @@ if (!isset($_SESSION['admin'])) {
 <!-- Barre de navigation principale -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="index.php">🏦 Banque Gestion</a>
+        <a class="navbar-brand" href="index.php?controller=client&action=index">🏦 Banque Gestion</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,7 +39,7 @@ if (!isset($_SESSION['admin'])) {
                     <a class="nav-link" href="index.php?controller=client&action=index">👥 Clients</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?controller=compte&action=index">💰 Comptes</a>
+                    <a class="nav-link" href="index.php?controller=compte&action=index">💳 Comptes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?controller=contrat&action=index">📜 Contrats</a>

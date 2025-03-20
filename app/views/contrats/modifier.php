@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">✏️ Modifier un Contrat</h2>
+    <h2 class="text-center">✏️ Modifier un contrat</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -18,7 +18,7 @@
             <input type="hidden" name="id" value="<?= htmlspecialchars($contrat['id']) ?>">
 
             <div class="mb-3">
-                <label for="type_contrat" class="form-label">Type de Contrat :</label>
+                <label for="type_contrat" class="form-label">Type de contrat :</label>
                 <select class="form-control" id="type_contrat" name="type_contrat" required>
                     <?php
                     $types = ["Assurance Vie", "Assurance Habitation", "Crédit Immobilier", "Crédit à la Consommation", "CEL"];
@@ -44,7 +44,7 @@
             <!-- Boutons -->
             <div class="d-flex justify-content-between">
                 <a href="index.php?controller=contrat&action=index" class="btn btn-secondary">Retour</a>
-                <button type="submit" class="btn btn-success">Mettre à Jour</button>
+                <button type="submit" class="btn btn-success">Mettre à jour</button>
             </div>
         </form>
     </div>

@@ -18,12 +18,12 @@
 
 
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">👥 Liste des Clients</h2>
+    <h2 class="mb-4 text-center">👥 Liste des clients</h2>
 
     <!-- Bouton Ajouter un Client -->
     <div class="d-flex justify-content-end mb-3">
         <a href="index.php?controller=client&action=create" class="btn btn-success">
-            ➕ Ajouter un Client
+            ➕ Ajouter un client
         </a>
 
     </div>

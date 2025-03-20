@@ -3,7 +3,7 @@
 
 
 <div class="container mt-5">
-    <h2 class="text-center">Modifier un Client</h2>
+    <h2 class="text-center">Modifier un client</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -46,7 +46,7 @@
             <!-- Boutons -->
             <div class="d-flex justify-content-between">
                 <a href="index.php?controller=client&action=index" class="btn btn-secondary">Retour</a>
-                <button type="submit" class="btn btn-success"> Mettre à Jour</button>
+                <button type="submit" class="btn btn-success"> Mettre à jour</button>
             </div>
         </form>
     </div>

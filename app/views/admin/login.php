@@ -28,16 +28,7 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?controller=client&action=index">👥 Clients</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?controller=compte&action=index">💰 Comptes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?controller=contrat&action=index">📜 Contrats</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-danger btn-sm text-white ms-3" href="index.php?controller=admin&action=logout">🔓 Connexion</a>
+                    <a class="nav-link btn btn-success btn-sm text-white ms-3" href="index.php?controller=admin&action=logout">🔓 Connexion</a>
                 </li>
             </ul>
         </div>

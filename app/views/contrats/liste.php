@@ -17,12 +17,12 @@
 <?php endif; ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">📜 Liste des Contrats</h2>
+    <h2 class="mb-4 text-center">📜 Liste des contrats</h2>
 
     <!-- Bouton Ajouter un Contrat -->
     <div class="d-flex justify-content-end mb-3">
         <a href="index.php?controller=contrat&action=create" class="btn btn-success">
-            ➕ Ajouter un Contrat
+            ➕ Ajouter un contrat
         </a>
     </div>
 
@@ -34,7 +34,7 @@
                     <th>Type</th>
                     <th>Montant (€)</th>
                     <th>Durée (mois)</th>
-                    <th>Client Associé</th>
+                    <th>Client associé</th>
                     <th>Actions</th>
                 </tr>
             </thead>

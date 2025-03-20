@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">➕ Ajouter un Compte Bancaire</h2>
+    <h2 class="text-center">➕ Ajouter un compte bancaire</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="type_compte" class="form-label">Type de Compte :</label>
+                <label for="type_compte" class="form-label">Type de compte :</label>
                 <select class="form-control" id="type_compte" name="type_compte" required>
                     <option value="Courant">Compte Courant</option>
                     <option value="Épargne">Compte Épargne</option>
@@ -34,7 +34,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_client" class="form-label">Client Associé :</label>
+                <label for="id_client" class="form-label">Client associé :</label>
                 <select class="form-control" id="id_client" name="id_client" required>
                     <?php foreach ($clients as $client) : ?>
                         <option value="<?= $client['id'] ?>">

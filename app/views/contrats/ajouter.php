@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">Ajouter un Contrat</h2>
+    <h2 class="text-center">Ajouter un contrat</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -16,7 +16,7 @@
     <div class="card shadow-lg p-4">
         <form action="index.php?controller=contrat&action=create" method="POST">
             <div class="mb-3">
-                <label for="type_contrat" class="form-label">Type de Contrat :</label>
+                <label for="type_contrat" class="form-label">Type de contrat :</label>
                 <select class="form-control" id="type_contrat" name="type_contrat" required>
                     <option value="Assurance Vie">Assurance Vie</option>
                     <option value="Assurance Habitation">Assurance Habitation</option>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_client" class="form-label">Client Associé :</label>
+                <label for="id_client" class="form-label">Client associé :</label>
                 <select class="form-control" id="id_client" name="id_client" required>
                     <?php foreach ($clients as $client) : ?>
                         <option value="<?= $client['id'] ?>">
