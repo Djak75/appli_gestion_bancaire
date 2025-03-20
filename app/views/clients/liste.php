@@ -1,3 +1,4 @@
+<!-- Inclure le header -->
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <!-- Affichage des messages de succès et d'erreur -->
@@ -27,6 +28,8 @@
 
     </div>
 
+    <!-- Tableau des clients -->
+     <!-- Récupérer la liste des clients -->
     <?php if (!empty($clients)): ?>
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
@@ -91,4 +94,5 @@ function confirmDelete(clientId, hasAccounts) {
     }, 3000); // 3 secondes
 </script>
 
+<!-- Inclure footer -->
 <?php require_once __DIR__ . '/../template/footer.php'; ?>

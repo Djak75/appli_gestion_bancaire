@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Message d'erreur
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 // Démarrer la session pour gérer l'authentification de l'administrateur
 session_start();
@@ -35,11 +36,11 @@ if (file_exists($controllerFile)) {
         if (method_exists($controllerInstance, $action)) {
             $controllerInstance->$action();
         } else {
-            echo "❌ Erreur : Action '$action' introuvable.";
+            echo "Erreur : Action '$action' introuvable.";
         }
     } else {
-        echo "❌ Erreur : Classe du contrôleur '$className' introuvable.";
+        echo "Erreur : Classe du contrôleur '$className' introuvable.";
     }
 } else {
-    echo "❌ Erreur : Contrôleur '$controller' introuvable.";
+    echo "Erreur : Contrôleur '$controller' introuvable.";
 }

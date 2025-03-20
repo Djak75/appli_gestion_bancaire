@@ -1,3 +1,4 @@
+<!-- Inclure le header -->
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <!-- Affichage des messages de succès et d'erreur -->
@@ -25,6 +26,7 @@
         </a>
     </div>
 
+    <!-- Tableau des comptes -->
     <?php if (!empty($comptes)): ?>
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
@@ -72,4 +74,5 @@
     }, 3000); // 3 secondes
 </script>
 
+<!-- Inclure footer -->
 <?php require_once __DIR__ . '/../template/footer.php'; ?>

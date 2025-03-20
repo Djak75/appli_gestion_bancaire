@@ -1,5 +1,5 @@
 <?php
-// Démarrer la session pour afficher les messages d'erreur
+// Vérifier si l'administrateur est connecté
 session_start();
 ?>
 
@@ -75,4 +75,5 @@ session_start();
 
 </div>
 
+<!-- Inclure footer -->
 <?php require_once __DIR__ . '/../template/footer.php'; ?>

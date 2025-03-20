@@ -1,9 +1,12 @@
 <?php
+// Inclure le modèle Compte
 require_once __DIR__ . "/../models/Compte.php";
 
+// Contrôleur pour gérer les comptes bancaires
 class CompteController {
     private $compteModel;
 
+    // Constructeur pour initialiser le modèle Compte
     public function __construct($db) {
         $this->compteModel = new Compte($db);
     }
@@ -27,7 +30,7 @@ class CompteController {
                 $type_compte = $_POST["type_compte"];
                 $id_client = $_POST["id_client"];
 
-                // Ajouter le compte en base
+                // Ajouter le compte en base de données
                 if ($this->compteModel->addCompte($rib, $solde, $type_compte, $id_client)) {
                     header("Location: index.php?controller=compte&action=index&message=Compte ajouté avec succès.");
                     exit();
@@ -39,6 +42,7 @@ class CompteController {
             }
         }
 
+        // Afficher le formulaire d'ajout
         require __DIR__ . "/../views/comptes/ajouter.php";
     }
 
@@ -48,10 +52,11 @@ class CompteController {
             header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
             exit();
         }
-
+        // Récupérer le compte par son ID
         $id = $_GET['id'];
         $compte = $this->compteModel->getCompteById($id);
 
+        // Rediriger si le compte n'existe pas
         if (!$compte) {
             header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
             exit();
@@ -60,6 +65,7 @@ class CompteController {
         // Récupérer la liste des clients pour la sélection dans le formulaire
         $clients = $this->compteModel->getAllClients(); 
 
+        // Afficher le formulaire de modification
         require __DIR__ . "/../views/comptes/modifier.php";
     }
 
@@ -71,7 +77,8 @@ class CompteController {
                 $solde = $_POST["solde"];
                 $type_compte = $_POST["type_compte"];
                 $id_client = $_POST["id_client"];
-    
+                
+                // Mettre à jour le compte en base de données
                 if ($this->compteModel->updateCompte($id, $solde, $type_compte, $id_client)) {
                     header("Location: index.php?controller=compte&action=index&message=Compte mis à jour avec succès.");
                     exit();
@@ -93,8 +100,9 @@ class CompteController {
             exit();
         }
 
+        // Supprimer le compte par son ID
         $id = $_GET['id'];
-
+        // Supprimer le compte en base de données
         if ($this->compteModel->deleteCompte($id)) {
             header("Location: index.php?controller=compte&action=index&message=Compte supprimé avec succès.");
         } else {

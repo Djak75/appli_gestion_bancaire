@@ -1,3 +1,4 @@
+<!-- Inclure le header -->
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
@@ -11,6 +12,7 @@
         </div>
     <?php endif; ?>
 
+    <!-- Formulaire de modification -->
     <div class="card shadow-lg p-4">
         <form action="index.php?controller=contrat&action=update" method="POST">
             <input type="hidden" name="id" value="<?= htmlspecialchars($contrat['id']) ?>">
@@ -48,4 +50,5 @@
     </div>
 </div>
 
+<!-- Inclure le footer -->
 <?php require_once __DIR__ . '/../template/footer.php'; ?>

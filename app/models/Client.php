@@ -6,35 +6,27 @@ require_once __DIR__ . "/../../config/database.php";
 class Client {
     private $conn;
 
+    // Constructeur pour initialiser la connexion à la base
     public function __construct() {
         $db = new Database();
         $this->conn = $db->getConnection();
     }
 
-    /**
-     * Récupère tous les clients enregistrés dans la base de données.
-     * @return array Liste des clients
-     */
-    public function getAllClients() {
+    // Méthode pour récupérer tous les clients
+    public function getAllClients(): array {
+        // Requête pour récupérer tous les clients
         $sql = "SELECT * FROM client";
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll();
     }
 
-        /**
-     * Ajoute un nouveau client à la base de données.
-     * @param string $nom Nom du client
-     * @param string $prenom Prénom du client
-     * @param string $email Email du client
-     * @param string $telephone Téléphone du client
-     * @param string $adresse Adresse du client 
-     * @return bool Retourne true si l'ajout est réussi, sinon false
-     */
-    public function addClient($nom, $prenom, $email, $telephone, $adresse = null) {
+     // Méthode pour ajouter un client
+    public function addClient(string $nom, string $prenom, string $email, string $telephone, ?string $adresse = null): bool {
+        // Requête pour ajouter un client
         $sql = "INSERT INTO client (nom, prenom, email, telephone, adresse) 
                 VALUES (:nom, :prenom, :email, :telephone, :adresse)";
         $stmt = $this->conn->prepare($sql);
-        
+        // Exécuter la requête
         return $stmt->execute([
             ':nom' => $nom,
             ':prenom' => $prenom,
@@ -44,23 +36,13 @@ class Client {
         ]);
     }
 
-    // Modifier un client
-
-        /**
-     * Met à jour les informations d'un client.
-     * @param int $id ID du client à modifier
-     * @param string $nom Nom du client
-     * @param string $prenom Prénom du client
-     * @param string $email Email du client
-     * @param string $telephone Téléphone du client
-     * @param string $adresse Adresse du client (optionnelle)
-     * @return bool Retourne true si la mise à jour est réussie, sinon false
-     */
-    public function updateClient($id, $nom, $prenom, $email, $telephone, $adresse = null) {
+    // Méthode pour modifier un client
+    public function updateClient(int $id, string $nom, string $prenom, string $email, string $telephone, ?string $adresse = null): bool {
+        // Requête pour modifier un client
         $sql = "UPDATE client SET nom = :nom, prenom = :prenom, email = :email, 
                 telephone = :telephone, adresse = :adresse WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
-        
+        // Exécuter la requête
         return $stmt->execute([
             ':id' => $id,
             ':nom' => $nom,
@@ -71,44 +53,35 @@ class Client {
         ]);
     }
 
-        /**
-     * Récupère un client par son ID.
-     * @param int $id L'identifiant du client
-     * @return array|false Retourne les informations du client ou false s'il n'existe pas
-     */
-    public function getClientById($id) {
+    // Méthode pour récupérer un client par son identifiant
+    public function getClientById(int $id) {
+        // Requête pour récupérer un client par son identifiant
         $sql = "SELECT * FROM client WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
+        // Retourne le client
         return $stmt->fetch();
     }
 
- 
-    /**
-     * Vérifie si un client possède des comptes bancaires.
-     * @param int $id L'identifiant du client
-     * @return bool Retourne true si le client a des comptes, sinon false
-     */
-    public function hasAccounts($id) {
+    // Méthode pour vérifier si un client a des comptes bancaires
+    public function hasAccounts(int $id): bool {
+        // Requête pour vérifier si un client a des comptes bancaires
         $sql = "SELECT COUNT(*) FROM compte WHERE id_client = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
+        // Retourne true si le client a des comptes, sinon false
         return $stmt->fetchColumn() > 0;
     }
 
-    /**
-     * Supprime un client et ses comptes bancaires si nécessaire.
-     * @param int $id L'identifiant du client
-     * @return bool Retourne true si la suppression a réussi, sinon false
-     */
-    public function deleteClient($id) {
+    // Méthode pour supprimer un client
+    public function deleteClient(int $id): bool {
         try {
             // Démarrer une transaction pour garantir la cohérence des données
             $this->conn->beginTransaction();
 
-            // Supprimer les comptes associés si nécessaire
+            // Supprimer les comptes bancaires du client
             $sqlDeleteAccounts = "DELETE FROM compte WHERE id_client = :id";
             $stmtAccounts = $this->conn->prepare($sqlDeleteAccounts);
             $stmtAccounts->bindParam(":id", $id, PDO::PARAM_INT);
@@ -129,7 +102,6 @@ class Client {
             return false;
         }
     }
-
 }
 
 

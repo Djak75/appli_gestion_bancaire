@@ -1,14 +1,17 @@
 <?php
+// Inclure le modèle Contrat
 require_once __DIR__ . "/../models/Contrat.php";
 
+// Contrôleur pour gérer les contrats
 class ContratController {
     private $contratModel;
 
+    // Constructeur pour initialiser le modèle Contrat
     public function __construct($db) {
         $this->contratModel = new Contrat($db);
     }
 
-    // Affiche la liste des contrats
+    // Affiche la liste de tous les contrats
     public function index() {
         $contrats = $this->contratModel->getAllContrats();
         require __DIR__ . "/../views/contrats/liste.php";
@@ -27,7 +30,7 @@ class ContratController {
                 $duree = $_POST["duree"];
                 $id_client = $_POST["id_client"];
     
-                // Ajouter le contrat en base
+                // Ajouter le contrat en base de données
                 if ($this->contratModel->addContrat($montant, $duree, $type_contrat, $id_client)) {
                     header("Location: index.php?controller=contrat&action=index&message=Contrat ajouté avec succès.");
                     exit();
@@ -38,7 +41,7 @@ class ContratController {
                 $error = "⚠️ Veuillez remplir tous les champs obligatoires.";
             }
         }
-    
+        // Afficher le formulaire d'ajout
         require __DIR__ . "/../views/contrats/ajouter.php";
     }
 
@@ -49,14 +52,15 @@ class ContratController {
             exit();
         }
 
+        // Récupérer le contrat par son ID
         $id = $_GET['id'];
         $contrat = $this->contratModel->getContratById($id);
-
+        // Rediriger si le contrat n'existe pas
         if (!$contrat) {
             header("Location: index.php?controller=contrat&action=index&error=Contrat introuvable.");
             exit();
         }
-
+        // Afficher le formulaire de modification
         require __DIR__ . "/../views/contrats/modifier.php";
     }
 
@@ -67,6 +71,7 @@ class ContratController {
             $montant = $_POST["montant"];
             $duree = $_POST["duree"];
 
+            // Mettre à jour le contrat
             if ($this->contratModel->updateContrat($id, $montant, $duree)) {
                 header("Location: index.php?controller=contrat&action=index&message=Contrat mis à jour avec succès.");
             } else {
@@ -82,9 +87,9 @@ class ContratController {
             header("Location: index.php?controller=contrat&action=index");
             exit();
         }
-
+        // Récupérer l'ID du contrat à supprimer
         $id = $_GET['id'];
-
+        // Supprimer le contrat
         if ($this->contratModel->deleteContrat($id)) {
             header("Location: index.php?controller=contrat&action=index&message=Contrat supprimé avec succès.");
         } else {

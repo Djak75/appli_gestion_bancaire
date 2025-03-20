@@ -6,6 +6,7 @@ require_once __DIR__ . "/../models/Admin.php";
 class AdminController {
     private $adminModel;
 
+    // Constructeur pour initialiser le modèle Admin
     public function __construct() {
         $this->adminModel = new Admin();
     }
@@ -26,6 +27,7 @@ class AdminController {
             // Vérifie si l'admin existe en base de données
             $admin = $this->adminModel->getAdminByEmail($email);
 
+            // Vérifie si le mot de passe est correct
             if ($admin && password_verify($password, $admin['mot_de_passe'])) {
                 $_SESSION['admin'] = $email;
                 header("Location: index.php?controller=client&action=index");

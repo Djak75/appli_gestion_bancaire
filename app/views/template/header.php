@@ -1,4 +1,5 @@
 <?php
+// Vérifier si l'administrateur est connecté
 session_start();
 if (!isset($_SESSION['admin'])) {
     header("Location: index.php?controller=admin&action=loginForm");
@@ -19,6 +20,7 @@ if (!isset($_SESSION['admin'])) {
     <!-- CSS personnalisé -->
     <link rel="stylesheet" href="/Simplon/appli_gestion_bancaire/app/views/template/style.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
 </head>
@@ -60,3 +62,5 @@ if (!isset($_SESSION['admin'])) {
         </div>
     </nav>
 <?php endif; ?>
+
+

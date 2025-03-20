@@ -1,3 +1,4 @@
+<!-- Inclure header -->
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
@@ -11,6 +12,7 @@
         </div>
     <?php endif; ?>
 
+    <!-- Formulaire d'ajout d'un compte -->
     <div class="card shadow-lg p-4">
         <form action="index.php?controller=compte&action=create" method="POST">
             <div class="mb-3">
@@ -51,4 +53,5 @@
     </div>
 </div>
 
+<!-- Inclure footer -->
 <?php require_once __DIR__ . '/../template/footer.php'; ?>
