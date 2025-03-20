@@ -1,44 +1,54 @@
-<?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: index.php?controller=admin&action=loginForm");
-    exit();
-}
-?>
+<?php require_once __DIR__ . '/../template/header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Compte</title>
-    <link rel="stylesheet" href="views/template/style.css">
-</head>
-<body>
-    <h1>Ajouter un Compte Bancaire</h1>
+<div class="container mt-5">
+    <h2 class="text-center">➕ Ajouter un Compte Bancaire</h2>
 
-    <form action="index.php?controller=compte&action=store" method="POST">
-        <label for="rib">RIB :</label>
-        <input type="text" id="rib" name="rib" required>
+    <!-- Affichage des erreurs -->
+    <?php if (isset($error)) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($error); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
 
-        <label for="type_compte">Type de compte :</label>
-        <select id="type_compte" name="type_compte" required>
-            <option value="Courant">Courant</option>
-            <option value="Épargne">Épargne</option>
-        </select>
+    <div class="card shadow-lg p-4">
+        <form action="index.php?controller=compte&action=create" method="POST">
+            <div class="mb-3">
+                <label for="rib" class="form-label">RIB :</label>
+                <input type="text" class="form-control" id="rib" name="rib" required>
+            </div>
 
-        <label for="solde">Solde initial (€) :</label>
-        <input type="number" id="solde" name="solde" min="0" required>
+            <div class="mb-3">
+                <label for="solde" class="form-label">Solde (€) :</label>
+                <input type="number" class="form-control" id="solde" name="solde" step="0.01" required>
+            </div>
 
-        <label for="id_client">Client :</label>
-        <select id="id_client" name="id_client" required>
-            <?php foreach ($clients as $client) : ?>
-                <option value="<?= $client['id'] ?>"><?= htmlspecialchars($client['nom'] . " " . $client['prenom']) ?></option>
-            <?php endforeach; ?>
-        </select>
+            <div class="mb-3">
+                <label for="type_compte" class="form-label">Type de Compte :</label>
+                <select class="form-control" id="type_compte" name="type_compte" required>
+                    <option value="Courant">Compte Courant</option>
+                    <option value="Épargne">Compte Épargne</option>
+                </select>
+            </div>
 
-        <button type="submit">Ajouter le compte</button>
-        <a href="index.php?controller=compte&action=index">Annuler</a>
-    </form>
-</body>
-</html>
+            <div class="mb-3">
+                <label for="id_client" class="form-label">Client Associé :</label>
+                <select class="form-control" id="id_client" name="id_client" required>
+                    <?php foreach ($clients as $client) : ?>
+                        <option value="<?= $client['id'] ?>">
+                            <?= htmlspecialchars($client['nom'] . ' ' . $client['prenom']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between">
+                <a href="index.php?controller=compte&action=index" class="btn btn-secondary">Retour</a>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<?php require_once __DIR__ . '/../template/footer.php'; ?>

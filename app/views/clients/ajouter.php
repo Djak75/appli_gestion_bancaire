@@ -1,45 +1,50 @@
-<?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: index.php?controller=admin&action=loginForm");
-    exit();
-}
-?>
+<?php require_once __DIR__ . '/../template/header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Client</title>
-    <link rel="stylesheet" href="views/template/style.css">
-</head>
-<body>
-    <h1>Ajouter un Client</h1>
+<div class="container mt-5">
+    <h2 class="text-center"> Ajouter un Client</h2>
 
-    <?php if (!empty($error)) : ?>
-        <p style="color: red;"><?= htmlspecialchars($error) ?></p>
+    <!-- Affichage des erreurs -->
+    <?php if (isset($error)) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= htmlspecialchars($error); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
     <?php endif; ?>
 
-    <form action="index.php?controller=client&action=create" method="POST">
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" required>
+    <div class="card shadow-lg p-4">
+        <form action="index.php?controller=client&action=create" method="POST">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" class="form-control" id="nom" name="nom" required>
+            </div>
 
-        <label for="prenom">Prénom :</label>
-        <input type="text" name="prenom" required>
+            <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom :</label>
+                <input type="text" class="form-control" id="prenom" name="prenom" required>
+            </div>
 
-        <label for="email">Email :</label>
-        <input type="email" name="email" required>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email :</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
 
-        <label for="telephone">Téléphone :</label>
-        <input type="text" name="telephone" required>
+            <div class="mb-3">
+                <label for="telephone" class="form-label">Téléphone :</label>
+                <input type="text" class="form-control" id="telephone" name="telephone" required>
+            </div>
 
-        <label for="adresse">Adresse :</label>
-        <input type="text" name="adresse">
+            <div class="mb-3">
+                <label for="adresse" class="form-label">Adresse :</label>
+                <input type="text" class="form-control" id="adresse" name="adresse">
+            </div>
 
-        <button type="submit">Ajouter</button>
-    </form>
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between">
+                <a href="index.php?controller=client&action=index" class="btn btn-secondary">Retour</a>
+                <button type="submit" class="btn btn-primary"> Ajouter</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <a href="index.php?controller=client&action=index">Retour à la liste</a>
-</body>
-</html>
+<?php require_once __DIR__ . '/../template/footer.php'; ?>

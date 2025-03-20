@@ -2,9 +2,7 @@
 // Inclure la connexion à la base de données
 require_once __DIR__ . "/../../config/database.php";
 
-/**
- * Modèle Admin pour gérer l'authentification de l'administrateur.
- */
+// Modèle pour gérer l'authentification de l'administrateur
 class Admin {
     private $conn;
 
@@ -33,5 +31,13 @@ class Admin {
             return true; // Connexion réussie
         }
         return false; // Connexion échouée
+    }
+
+    public function getAdminByEmail($email) {
+        $sql = "SELECT * FROM administrateur WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Retourne l'admin ou false si introuvable
     }
 }

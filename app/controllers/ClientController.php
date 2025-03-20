@@ -44,7 +44,6 @@ public function create() {
 }
 
 // Affiche le formulaire de modification pour modifier un client.
-
 public function edit() {
     // Vérifier si un ID est passé en paramètre
     if (!isset($_GET['id'])) {
@@ -98,8 +97,6 @@ public function delete() {
     }
     exit();
 }
-
-
 
 }
 

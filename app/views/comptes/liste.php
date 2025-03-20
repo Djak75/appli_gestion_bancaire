@@ -1,57 +1,75 @@
-<?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: index.php?controller=admin&action=loginForm");
-    exit();
-}
-?>
+<?php require_once __DIR__ . '/../template/header.php'; ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Comptes Bancaires</title>
-    <link rel="stylesheet" href="views/template/style.css">
-</head>
-<body>
-    <h1>Liste des Comptes Bancaires</h1>
+<!-- Affichage des messages de succès et d'erreur -->
+<?php if (isset($_GET['message'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($_GET['message']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
 
-    <a href="index.php?controller=admin&action=logout">Déconnexion</a>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>RIB</th>
-                <th>Type</th>
-                <th>Solde (€)</th>
-                <th>Client</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($comptes as $compte) : ?>
+<?php if (isset($_GET['error'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($_GET['error']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">💰 Liste des Comptes Bancaires</h2>
+
+    <!-- Bouton Ajouter un Compte -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="index.php?controller=compte&action=create" class="btn btn-success">
+            ➕ Ajouter un Compte
+        </a>
+    </div>
+
+    <?php if (!empty($comptes)): ?>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
                 <tr>
-                    <td><?= htmlspecialchars($compte['rib']) ?></td>
-                    <td><?= htmlspecialchars($compte['type_compte']) ?></td>
-                    <td><?= htmlspecialchars(number_format($compte['solde'], 2, ',', ' ')) ?> €</td>
-                    <td><?= htmlspecialchars($compte['nom']) . " " . htmlspecialchars($compte['prenom']) ?></td>
-                    <td>
-                        <a href="index.php?controller=compte&action=edit&id=<?= $compte['id'] ?>">Modifier</a> |
-                        <a href="#" onclick="confirmDelete(<?= $compte['id'] ?>)">Supprimer</a>
-                    </td>
+                    <th>RIB</th>
+                    <th>Solde (€)</th>
+                    <th>Type de Compte</th>
+                    <th>Client Associé</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($comptes as $compte): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($compte['rib']) ?></td>
+                        <td><?= htmlspecialchars($compte['solde']) ?> €</td>
+                        <td><?= htmlspecialchars($compte['type_compte']) ?></td>
+                        <td><?= htmlspecialchars($compte['nom'] . ' ' . $compte['prenom']) ?></td>
+                        <td class="text-center">
+                            <a href="index.php?controller=compte&action=edit&id=<?= $compte['id'] ?>" class="btn btn-warning btn-sm">
+                                Modifier
+                            </a>
+                            <a href="index.php?controller=compte&action=delete&id=<?= $compte['id'] ?>" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce compte bancaire ?')">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="text-center mt-4">Aucun compte bancaire trouvé.</p>
+    <?php endif; ?>
+</div>
 
-    <a href="index.php?controller=compte&action=create">Ajouter un Compte</a>
+<!-- Supprimer au bout 3 secondes -->
+<script>
+    setTimeout(() => {
+        let alerts = document.querySelectorAll(".alert");
+        alerts.forEach(alert => {
+            alert.style.display = "none";
+        });
+    }, 3000); // 3 secondes
+</script>
 
-    <script>
-    function confirmDelete(id) {
-        if (confirm("Êtes-vous sûr de vouloir supprimer ce compte ?")) {
-            window.location.href = "index.php?controller=compte&action=delete&id=" + id;
-        }
-    }
-    </script>
-</body>
-</html>
+<?php require_once __DIR__ . '/../template/footer.php'; ?>

@@ -45,12 +45,13 @@ class Contrat {
      * @param int $id_client ID du client associé
      * @return bool Retourne true si l'insertion est réussie, sinon false.
      */
-    public function addContrat($montant, $duree, $type, $id_client) {
-        $sql = "INSERT INTO contrat (montant, duree, type_contrat, id_client) VALUES (:montant, :duree, :type, :id_client)";
+    public function addContrat($montant, $duree, $type_contrat, $id_client) {
+        $sql = "INSERT INTO contrat (montant, duree, type_contrat, id_client) 
+                VALUES (:montant, :duree, :type_contrat, :id_client)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(":montant", $montant);
         $stmt->bindParam(":duree", $duree, PDO::PARAM_INT);
-        $stmt->bindParam(":type", $type);
+        $stmt->bindParam(":type_contrat", $type_contrat); // ✅ Correction ici
         $stmt->bindParam(":id_client", $id_client, PDO::PARAM_INT);
         return $stmt->execute();
     }

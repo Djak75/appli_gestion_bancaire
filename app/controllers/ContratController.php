@@ -16,27 +16,30 @@ class ContratController {
 
     // Affiche le formulaire d'ajout pour ajouter un contrat.
     public function create() {
-        // Récupérer tous les clients pour permettre la sélection
+        // Récupérer tous les clients pour afficher la liste déroulante
         $clients = $this->contratModel->getAllClients(); 
-
-        require __DIR__ . "/../views/contrats/ajouter.php";
-    }
-
-  // Ajouter un contrat à la base de données
-    public function store() {
+    
+        // Vérifie si le formulaire a été soumis en POST
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $montant = $_POST["montant"];
-            $duree = $_POST["duree"];
-            $type = $_POST["type_contrat"];
-            $id_client = $_POST["id_client"];
-
-            if ($this->contratModel->addContrat($montant, $duree, $type, $id_client)) {
-                header("Location: index.php?controller=contrat&action=index&message=Contrat ajouté avec succès.");
+            if (!empty($_POST['type_contrat']) && !empty($_POST['montant']) && !empty($_POST['duree']) && !empty($_POST['id_client'])) {
+                $type_contrat = $_POST["type_contrat"];
+                $montant = $_POST["montant"];
+                $duree = $_POST["duree"];
+                $id_client = $_POST["id_client"];
+    
+                // Ajouter le contrat en base
+                if ($this->contratModel->addContrat($montant, $duree, $type_contrat, $id_client)) {
+                    header("Location: index.php?controller=contrat&action=index&message=Contrat ajouté avec succès.");
+                    exit();
+                } else {
+                    $error = "❌ Une erreur est survenue lors de l'ajout du contrat.";
+                }
             } else {
-                header("Location: index.php?controller=contrat&action=create&error=Erreur lors de l'ajout du contrat.");
+                $error = "⚠️ Veuillez remplir tous les champs obligatoires.";
             }
-            exit();
         }
+    
+        require __DIR__ . "/../views/contrats/ajouter.php";
     }
 
     // Affiche le formulaire de modification d'un contrat.

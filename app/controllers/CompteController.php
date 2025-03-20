@@ -8,89 +8,99 @@ class CompteController {
         $this->compteModel = new Compte($db);
     }
 
-    
     // Affiche la liste des comptes bancaires
     public function index() {
         $comptes = $this->compteModel->getAllComptes();
         require __DIR__ . "/../views/comptes/liste.php";
     }
 
-  
-    // Affiche le formulaire de modification d'un compte
-public function edit() {
-    if (!isset($_GET['id'])) {
-        header("Location: index.php?controller=compte&action=index");
-        exit();
+    // Affiche le formulaire d'ajout d'un compte bancaire
+    public function create() {
+        // Récupérer tous les clients pour la sélection dans le formulaire
+        $clients = $this->compteModel->getAllClients(); 
+
+        // Vérifie si le formulaire est soumis
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if (!empty($_POST['rib']) && !empty($_POST['solde']) && !empty($_POST['type_compte']) && !empty($_POST['id_client'])) {
+                $rib = $_POST["rib"];
+                $solde = $_POST["solde"];
+                $type_compte = $_POST["type_compte"];
+                $id_client = $_POST["id_client"];
+
+                // Ajouter le compte en base
+                if ($this->compteModel->addCompte($rib, $solde, $type_compte, $id_client)) {
+                    header("Location: index.php?controller=compte&action=index&message=Compte ajouté avec succès.");
+                    exit();
+                } else {
+                    $error = "❌ Une erreur est survenue lors de l'ajout du compte.";
+                }
+            } else {
+                $error = "⚠️ Veuillez remplir tous les champs obligatoires.";
+            }
+        }
+
+        require __DIR__ . "/../views/comptes/ajouter.php";
     }
 
-    $id = $_GET['id'];
-    $compte = $this->compteModel->getCompteById($id);
+    // Affiche le formulaire de modification d'un compte 
+    public function edit() {
+        if (!isset($_GET['id'])) {
+            header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
+            exit();
+        }
 
-    if (!$compte) {
-        header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
-        exit();
+        $id = $_GET['id'];
+        $compte = $this->compteModel->getCompteById($id);
+
+        if (!$compte) {
+            header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
+            exit();
+        }
+
+        // Récupérer la liste des clients pour la sélection dans le formulaire
+        $clients = $this->compteModel->getAllClients(); 
+
+        require __DIR__ . "/../views/comptes/modifier.php";
     }
 
-    require __DIR__ . "/../views/comptes/modifier.php";
-}
+    // Met à jour un compte bancaire
+    public function update() {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if (!empty($_POST["id"]) && !empty($_POST["solde"]) && !empty($_POST["type_compte"]) && !empty($_POST["id_client"])) {
+                $id = $_POST["id"];
+                $solde = $_POST["solde"];
+                $type_compte = $_POST["type_compte"];
+                $id_client = $_POST["id_client"];
+    
+                if ($this->compteModel->updateCompte($id, $solde, $type_compte, $id_client)) {
+                    header("Location: index.php?controller=compte&action=index&message=Compte mis à jour avec succès.");
+                    exit();
+                } else {
+                    header("Location: index.php?controller=compte&action=edit&id=$id&error=Erreur lors de la mise à jour.");
+                    exit();
+                }
+            } else {
+                header("Location: index.php?controller=compte&action=edit&id=" . $_POST['id'] . "&error=Veuillez remplir tous les champs.");
+                exit();
+            }
+        }
+    }
 
-// Met à jour un compte bancaire
-public function update() {
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $id = $_POST["id"];
-        $solde = $_POST["solde"];
-        $type = $_POST["type_compte"];
+    // Supprime un compte bancaire
+    public function delete() {
+        if (!isset($_GET['id'])) {
+            header("Location: index.php?controller=compte&action=index&error=Compte introuvable.");
+            exit();
+        }
 
-        if ($this->compteModel->updateCompte($id, $solde, $type)) {
-            header("Location: index.php?controller=compte&action=index&message=Compte mis à jour avec succès.");
+        $id = $_GET['id'];
+
+        if ($this->compteModel->deleteCompte($id)) {
+            header("Location: index.php?controller=compte&action=index&message=Compte supprimé avec succès.");
         } else {
-            header("Location: index.php?controller=compte&action=edit&id=$id&error=Erreur lors de la mise à jour.");
+            header("Location: index.php?controller=compte&action=index&error=Erreur lors de la suppression.");
         }
         exit();
     }
 }
 
-// Supprime un compte bancaire
-public function delete() {
-    if (!isset($_GET['id'])) {
-        header("Location: index.php?controller=compte&action=index");
-        exit();
-    }
-
-    $id = $_GET['id'];
-
-    if ($this->compteModel->deleteCompte($id)) {
-        header("Location: index.php?controller=compte&action=index&message=Compte supprimé avec succès.");
-    } else {
-        header("Location: index.php?controller=compte&action=index&error=Erreur lors de la suppression.");
-    }
-    exit();
-}
-
-
-// Affiche le formulaire d'ajout d'un compte
-public function create() {
-    // Récupérer tous les clients pour permettre la sélection
-    $clients = $this->compteModel->getAllClients(); 
-
-    require __DIR__ . "/../views/comptes/ajouter.php";
-}
-
-// Ajoute un compte bancaire à la base de données
-public function store() {
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $rib = $_POST["rib"];
-        $solde = $_POST["solde"];
-        $type = $_POST["type_compte"];
-        $id_client = $_POST["id_client"];
-
-        if ($this->compteModel->addCompte($rib, $solde, $type, $id_client)) {
-            header("Location: index.php?controller=compte&action=index&message=Compte ajouté avec succès.");
-        } else {
-            header("Location: index.php?controller=compte&action=create&error=Erreur lors de l'ajout du compte.");
-        }
-        exit();
-    }
-}
-
-}
