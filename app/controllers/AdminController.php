@@ -30,7 +30,7 @@ class AdminController {
             // Vérifie si le mot de passe est correct
             if ($admin && password_verify($password, $admin['mot_de_passe'])) {
                 $_SESSION['admin'] = $email;
-                header("Location: index.php?controller=client&action=index");
+                header("Location: index.php?controller=dashboard&action=index");
                 exit();
             } else {
                 $_SESSION['error_message'] = " Identifiants incorrects. Vérifiez votre email et votre mot de passe.";

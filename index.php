@@ -13,8 +13,8 @@ require_once __DIR__ . "/config/database.php";
 $db = (new Database())->getConnection();
 
 // Récupérer le contrôleur et l'action depuis l'URL
-$controller = $_GET['controller'] ?? 'admin'; // Par défaut : page de connexion admin
-$action = $_GET['action'] ?? 'loginForm'; // Par défaut : formulaire de connexion
+$controller = $_GET['controller'] ?? 'dashboard'; // Par défaut : page de connexion admin
+$action = $_GET['action'] ?? 'index'; // Par défaut : formulaire de connexion
 
 // Construire le chemin du fichier du contrôleur
 $controllerFile = __DIR__ . "/app/controllers/" . ucfirst($controller) . "Controller.php";

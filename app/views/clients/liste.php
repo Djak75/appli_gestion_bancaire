@@ -34,6 +34,7 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th>Numéro Client</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
@@ -45,6 +46,7 @@
             <tbody>
                 <?php foreach ($clients as $client): ?>
                     <tr>
+                        <td><?= htmlspecialchars($client['numero_client']) ?></td>
                         <td><?= htmlspecialchars($client['nom']) ?></td>
                         <td><?= htmlspecialchars($client['prenom']) ?></td>
                         <td><?= htmlspecialchars($client['email']) ?></td>

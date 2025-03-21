@@ -21,13 +21,22 @@ class Client {
     }
 
      // Méthode pour ajouter un client
-    public function addClient(string $nom, string $prenom, string $email, string $telephone, ?string $adresse = null): bool {
+     public function addClient($nom, $prenom, $email, $telephone, $adresse = null) {
+        // Récupérer le dernier ID pour générer un numéro unique
+        $lastId = $this->conn->query("SELECT MAX(id) FROM client")->fetchColumn();
+        // Générer un nouveau ID
+        $newId = $lastId ? $lastId + 1 : 1;
+    
+        // Format : SIMP202501, SIMP202502...
+        $numero_client = "SIMP" . date("Y") . str_pad($newId, 2, "0", STR_PAD_LEFT);
         // Requête pour ajouter un client
-        $sql = "INSERT INTO client (nom, prenom, email, telephone, adresse) 
-                VALUES (:nom, :prenom, :email, :telephone, :adresse)";
+        $sql = "INSERT INTO client (numero_client, nom, prenom, email, telephone, adresse) 
+                VALUES (:numero_client, :nom, :prenom, :email, :telephone, :adresse)";
+        // Préparer la requête
         $stmt = $this->conn->prepare($sql);
         // Exécuter la requête
         return $stmt->execute([
+            ':numero_client' => $numero_client,
             ':nom' => $nom,
             ':prenom' => $prenom,
             ':email' => $email,
@@ -102,6 +111,14 @@ class Client {
             return false;
         }
     }
+    // Méthode pour récupérer le nombre total de clients
+    public function getTotalClients(): int {
+        $sql = "SELECT COUNT(*) FROM client";
+        $stmt = $this->conn->query($sql);
+        // Retourne le nombre total de clients
+        return (int) $stmt->fetchColumn();
+    }
+    
 }
 
 

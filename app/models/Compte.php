@@ -77,4 +77,12 @@ class Compte {
         // Retourne tous les clients
         return $stmt->fetchAll();
     }
+
+    // Méthode pour récupérer le nombre total de comptes
+    public function getTotalComptes(): int {
+        $sql = "SELECT COUNT(*) FROM compte";
+        $stmt = $this->conn->query($sql);
+        // Retourne le nombre total de comptes
+        return (int) $stmt->fetchColumn();
+    }
 }

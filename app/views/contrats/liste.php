@@ -31,6 +31,7 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th>Identifiant du contrat </th>
                     <th>Type</th>
                     <th>Montant (€)</th>
                     <th>Durée (mois)</th>
@@ -41,6 +42,7 @@
             <tbody>
                 <?php foreach ($contrats as $contrat): ?>
                     <tr>
+                        <td><?= htmlspecialchars($contrat['id']) ?></td>
                         <td><?= htmlspecialchars($contrat['type_contrat']) ?></td>
                         <td><?= htmlspecialchars($contrat['montant']) ?> €</td>
                         <td><?= htmlspecialchars($contrat['duree']) ?> mois</td>

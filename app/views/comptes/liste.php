@@ -31,9 +31,10 @@
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th>Identifiant de Compte</th>
                     <th>RIB</th>
-                    <th>Solde (€)</th>
                     <th>Type de compte</th>
+                    <th>Solde (€)</th>
                     <th>Client associé</th>
                     <th>Actions</th>
                 </tr>
@@ -41,9 +42,10 @@
             <tbody>
                 <?php foreach ($comptes as $compte): ?>
                     <tr>
+                        <td><?= htmlspecialchars($compte['id']) ?></td>
                         <td><?= htmlspecialchars($compte['rib']) ?></td>
-                        <td><?= htmlspecialchars($compte['solde']) ?> €</td>
                         <td><?= htmlspecialchars($compte['type_compte']) ?></td>
+                        <td><?= htmlspecialchars($compte['solde']) ?> €</td>
                         <td><?= htmlspecialchars($compte['nom'] . ' ' . $compte['prenom']) ?></td>
                         <td class="text-center">
                             <a href="index.php?controller=compte&action=edit&id=<?= $compte['id'] ?>" class="btn btn-warning btn-sm">

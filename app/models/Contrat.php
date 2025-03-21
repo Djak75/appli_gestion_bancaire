@@ -79,4 +79,13 @@ class Contrat {
         // Retourne tous les clients
         return $stmt->fetchAll();
     }
+
+    // Méthode pour récupérer le nombre total de contrats
+    public function getTotalContrats(): int {
+        $sql = "SELECT COUNT(*) FROM contrat";
+        $stmt = $this->conn->query($sql);
+        // Retourne le nombre total de contrats
+        return (int) $stmt->fetchColumn();
+    }
+    
 }
