@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">✏️ Modifier un compte bancaire</h2>
+    <h2 class="text-center">Modifier un compte bancaire</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -23,11 +23,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="solde" class="form-label">Solde (€) :</label>
-                <input type="number" class="form-control" id="solde" name="solde" value="<?= htmlspecialchars($compte['solde']) ?>" step="0.01" required>
-            </div>
-
-            <div class="mb-3">
                 <label for="type_compte" class="form-label">Type de compte :</label>
                 <select class="form-control" id="type_compte" name="type_compte" required>
                     <option value="Courant" <?= ($compte['type_compte'] == 'Courant') ? 'selected' : '' ?>>Compte Courant</option>
@@ -36,14 +31,16 @@
             </div>
 
             <div class="mb-3">
-                <label for="id_client" class="form-label">Client associé :</label>
-                <select class="form-control" id="id_client" name="id_client" required>
-                    <?php foreach ($clients as $client) : ?>
-                        <option value="<?= $client['id'] ?>" <?= ($compte['id_client'] == $client['id']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($client['nom'] . ' ' . $client['prenom']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="solde" class="form-label">Solde (€) :</label>
+                <input type="number" class="form-control" id="solde" name="solde" value="<?= htmlspecialchars($compte['solde']) ?>" step="0.01" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Client Associé :</label>
+                <input type="text" class="form-control" 
+                    value="<?= htmlspecialchars($compte['client_nom'] . ' ' . $compte['client_prenom']) ?>" 
+                    readonly>
+                <input type="hidden" name="id_client" value="<?= $compte['id_client'] ?>">
             </div>
 
             <!-- Boutons -->

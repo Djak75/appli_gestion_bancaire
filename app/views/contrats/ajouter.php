@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">Ajouter un contrat</h2>
+    <h2 class="text-center">➕ Ajouter un contrat</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="montant" class="form-label">Montant (€) :</label>
+                <label for="montant" class="form-label">Montant souscrit (€) :</label>
                 <input type="number" class="form-control" id="montant" name="montant" step="0.01" required>
             </div>
 

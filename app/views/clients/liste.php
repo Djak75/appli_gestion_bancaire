@@ -39,7 +39,6 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Adresse</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -51,8 +50,8 @@
                         <td><?= htmlspecialchars($client['prenom']) ?></td>
                         <td><?= htmlspecialchars($client['email']) ?></td>
                         <td><?= htmlspecialchars($client['telephone']) ?></td>
-                        <td><?= htmlspecialchars($client['adresse']) ?></td>
                         <td class="text-center">
+                        <a href="index.php?controller=client&action=voirDossier&id=<?= $client['id'] ?>" class="btn btn-info btn-sm">Voir Dossier</a>
                             <a href="index.php?controller=client&action=edit&id=<?= $client['id'] ?>" class="btn btn-warning btn-sm">
                                 Modifier
                             </a>

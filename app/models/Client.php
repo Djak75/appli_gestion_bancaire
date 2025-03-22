@@ -118,6 +118,29 @@ class Client {
         // Retourne le nombre total de clients
         return (int) $stmt->fetchColumn();
     }
+
+    // Méthode pour récupérer les clients 
+    public function getComptesByClient($id_client) {
+        // Requête pour récupérer les comptes par client
+        $sql = "SELECT * FROM compte WHERE id_client = :id_client";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_client", $id_client, PDO::PARAM_INT);
+        $stmt->execute();
+        // Retourne les comptes
+        return $stmt->fetchAll();
+    }
+
+    // Méthode pour récupérer les contrats par client
+    public function getContratsByClient($id_client) {
+        // Requête pour récupérer les contrats par client
+        $sql = "SELECT * FROM contrat WHERE id_client = :id_client";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id_client", $id_client, PDO::PARAM_INT);
+        $stmt->execute();
+        // Retourne les contrats
+        return $stmt->fetchAll();
+    }
+
     
 }
 

@@ -2,7 +2,7 @@
 <?php require_once __DIR__ . '/../template/header.php'; ?>
 
 <div class="container mt-5">
-    <h2 class="text-center">✏️ Modifier un contrat</h2>
+    <h2 class="text-center">Modifier un contrat</h2>
 
     <!-- Affichage des erreurs -->
     <?php if (isset($error)) : ?>

@@ -21,6 +21,7 @@ Création de la base de données et insertion de données de test.
 
 Difficulté rencontrée :
 Erreur 404 sur certaines pages → Résolu en ajustant les chemins relatifs (require_once __DIR__ . ...).
+Création d'une classe Database.php pour la connexion proprement en POO.
 Problème de connexion MySQL → XAMPP ne démarrait pas correctement, nécessitant un redémarrage
 
 
@@ -50,6 +51,8 @@ Navigation fluide avec une barre navigation dynamique.
 Difficulté rencontrée :
 Le fichier CSS ne s'appliquait pas → Problème de chemin, résolu en ajoutant app/ dans le chemin relatif.
 Affichage dynamique des statistiques → J’ai dû revoir les requêtes SQL pour bien récupérer les totaux
+Correction du problème de redirection après connexion (qui menait sur la liste des comptes au lieu du tableau de bord)
+Effacé la barre de navigation lorsque la Session est deconnecté
 
 
 Jour 5 : Sécurité, tests et finalisation
@@ -61,6 +64,8 @@ Documentation et nettoyage du code avec des commentaires clairs.
 Difficulté rencontrée :
 Affichage du bon message de succès/erreur → Ajout d'un script pour masquer les messages après 3 secondes.
 Problème de redirection après connexion admin → Corrigé en redirigeant vers le tableau de bord (index.php?controller=dashboard).
+Ajout d’un bouton "Voir dossier" dans la liste des clients pour afficher les détails complets d’un client (j'avais oublié et je l'ai vu en relisant encore le cahier des charges)
+Sur la modification d’un compte, affichage du nom du client en lecture seule pour éviter toute erreur.
 
 
 Bilan du projet
@@ -80,6 +85,11 @@ Technologies utilisées
 ✔️ Base de données : MySQL
 ✔️ Architecture : MVC (Modèle-Vue-Contrôleur)
 ✔️ Sécurité : Requêtes préparées, hachage des mots de passe
+
+
+Se connecter en tant qu'admin :
+Email : admin@banque.com
+Mot de passe : admin123
 
 
 Conclusion

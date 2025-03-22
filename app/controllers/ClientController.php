@@ -99,6 +99,28 @@ class ClientController {
         }
         exit();
     }
+    // Affiche le dossier d'un client avec ses comptes et contrats
+    public function voirDossier() {
+        if (!isset($_GET['id'])) {
+            header("Location: index.php?controller=client&action=index&error=Aucun client sélectionné.");
+            exit();
+        }
+        // Récupérer le client par son ID
+        $id = $_GET['id'];
+        // Récupérer les comptes et contrats du client
+        $client = $this->clientModel->getClientById($id);
+        $comptes = $this->clientModel->getComptesByClient($id);
+        $contrats = $this->clientModel->getContratsByClient($id);
+        
+        // Rediriger si le client n'existe pas
+        if (!$client) {
+            header("Location: index.php?controller=client&action=index&error=Client introuvable.");
+            exit();
+        }
+        // Afficher le dossier du client
+        require __DIR__ . "/../views/clients/voir.php";
+    }
+    
 }
 
 

@@ -85,4 +85,18 @@ class Compte {
         // Retourne le nombre total de comptes
         return (int) $stmt->fetchColumn();
     }
+
+    // Méthode pour récupérer un compte avec le client associé
+    public function getCompteWithClient($id) {
+        // Requête pour récupérer un compte avec le client associé
+        $sql = "SELECT compte.*, client.nom AS client_nom, client.prenom AS client_prenom 
+                FROM compte 
+                JOIN client ON compte.id_client = client.id 
+                WHERE compte.id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        // Retourne le compte avec le client associé
+        return $stmt->fetch();
+    }
 }
