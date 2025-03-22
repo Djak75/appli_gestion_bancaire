@@ -17,4 +17,21 @@ th {
     transition: background-color 0.3s ease-in-out;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1; /* Permet au contenu principal de prendre toute la place disponible */
+}
+
+footer {
+    background-color: #222; 
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
  

@@ -26,6 +26,7 @@ if (!isset($_SESSION['admin'])) {
 </head>
 <body>
 
+
 <!-- Barre de navigation principale -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
